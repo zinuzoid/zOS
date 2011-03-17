@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Project>
+  <Desktop>
+    <Static>
+      <Debug-Log>
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1223</ColumnWidth1></Debug-Log>
+      <Build>
+        <ColumnWidth0>20</ColumnWidth0>
+        <ColumnWidth1>917</ColumnWidth1>
+        <ColumnWidth2>244</ColumnWidth2>
+        <ColumnWidth3>61</ColumnWidth3>
+      </Build>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>124</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+      </Workspace>
+      <Disassembly>
+        
+        
+        
+      <PreferedWindows><Position>2</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows/></PreferedWindows><MixedMode>1</MixedMode><CodeCovShow>1</CodeCovShow><InstrProfShow>1</InstrProfShow></Disassembly>
+    <Watch><Format><struct_types/><watch_formats/></Format><Column0>100</Column0><Column1>133</Column1><Column2>100</Column2><Column3>100</Column3></Watch><Auto><Column0>175</Column0><Column1>181</Column1><Column2>100</Column2><Column3>100</Column3></Auto><CallStack><ViewArgs>1</ViewArgs></CallStack><STACK2/></Static>
+    <Windows>
+      
+      
+      
+    <Wnd1>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-7008-30358</Identity>
+            <TabName>Debug Log</TabName>
+            <Factory>Debug-Log</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-27982-30375</Identity>
+            <TabName>Build</TabName>
+            <Factory>Build</Factory>
+            <Session/>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd1><Wnd2>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-17757-30362</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>zOS</ExpandedNode><ExpandedNode>zOS/Output</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd2><Wnd4><Tabs><Tab><Identity>TabID-8478-1638</Identity><TabName>Call Stack</TabName><Factory>CallStack</Factory><Session/></Tab><Tab><Identity>TabID-12430-1769</Identity><TabName>Stack</TabName><Factory>STACK2</Factory><Session><ShowVariables>1</ShowVariables><ShowOffsets>1</ShowOffsets><UnitWidth>1</UnitWidth><SelectedStack>0</SelectedStack><AddressColWidth>95</AddressColWidth><StackColWidth>95</StackColWidth><SymbolColWidth>90</SymbolColWidth><ValueColWidth>60</ValueColWidth><FrameColWidth>60</FrameColWidth></Session></Tab><Tab><Identity>TabID-9524-1619</Identity><TabName>Auto</TabName><Factory>Auto</Factory><Session><Column0>175</Column0><Column1>181</Column1><Column2>100</Column2><Column3>100</Column3></Session></Tab></Tabs><SelectedTab>2</SelectedTab></Wnd4><Wnd6><Tabs><Tab><Identity>TabID-22469-10792</Identity><TabName>Watch</TabName><Factory>Watch</Factory><Session><Expressions><Expression><Expression>PC</Expression></Expression><Expression><Expression>SP</Expression></Expression><Expression><Expression>taskheader</Expression></Expression></Expressions><TabId>1</TabId><Column0>100</Column0><Column1>133</Column1><Column2>100</Column2><Column3>100</Column3></Session></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd6></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\queue.c</Filename><XPos>0</XPos><YPos>27</YPos><SelStart>622</SelStart><SelEnd>622</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\queue.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>461</SelStart><SelEnd>461</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\led.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>468</SelStart><SelEnd>468</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\usart.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>635</SelStart><SelEnd>635</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\header.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>959</SelStart><SelEnd>959</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\STM32F10x_StdPeriph_Lib_V3.4.0\Project\STM32F10x_StdPeriph_Template\stm32f10x_it.c</Filename><XPos>0</XPos><YPos>42</YPos><SelStart>2653</SelStart><SelEnd>2653</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\button.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>579</SelStart><SelEnd>579</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\roundrobintask.c</Filename><XPos>0</XPos><YPos>67</YPos><SelStart>1723</SelStart><SelEnd>1723</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\roundrobintask.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>681</SelStart><SelEnd>681</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\cmd.c</Filename><XPos>0</XPos><YPos>12</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\cmd.h</Filename><XPos>0</XPos><YPos>1</YPos><SelStart>657</SelStart><SelEnd>657</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\systick.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>649</SelStart><SelEnd>649</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\util.c</Filename><XPos>0</XPos><YPos>33</YPos><SelStart>1110</SelStart><SelEnd>1143</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\util.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>508</SelStart><SelEnd>515</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\led.c</Filename><XPos>0</XPos><YPos>30</YPos><SelStart>1711</SelStart><SelEnd>1711</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\main.c</Filename><XPos>0</XPos><YPos>6</YPos><SelStart>740</SelStart><SelEnd>740</SelEnd></Tab><ActiveTab>15</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Debug\List\c.map</Filename><XPos>0</XPos><YPos>180</YPos><SelStart>13798</SelStart><SelEnd>13798</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\usart.c</Filename><XPos>0</XPos><YPos>17</YPos><SelStart>1035</SelStart><SelEnd>1035</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\button.c</Filename><XPos>0</XPos><YPos>78</YPos><SelStart>2230</SelStart><SelEnd>2230</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\src\systick.c</Filename><XPos>0</XPos><YPos>88</YPos><SelStart>1407</SelStart><SelEnd>1407</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-013aadd0><key>iaridepm.enu1</key></Toolbar-013aadd0></Sizes></Row0><Row1><Sizes><Toolbar-07da8db0><key>debuggergui.enu1</key></Toolbar-07da8db0></Sizes></Row1></Top><Left><Row0><Sizes><Wnd2><Rect><Top>-2</Top><Left>-2</Left><Bottom>698</Bottom><Right>198</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>156250</sizeHorzCX><sizeHorzCY>207469</sizeHorzCY><sizeVertCX>156250</sizeVertCX><sizeVertCY>726141</sizeVertCY></Rect></Wnd2></Sizes></Row0></Left><Right><Row0><Sizes><Wnd6><Rect><Top>-2</Top><Left>-2</Left><Bottom>335</Bottom><Right>435</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>156250</sizeHorzCX><sizeHorzCY>207469</sizeHorzCY><sizeVertCX>341406</sizeVertCX><sizeVertCY>349585</sizeVertCY></Rect></Wnd6><Wnd4><Rect><Top>0</Top><Left>0</Left><Bottom>0</Bottom><Right>30055880</Right><x>-2</x><y>333</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>156250</sizeHorzCX><sizeHorzCY>207469</sizeHorzCY><sizeVertCX>341406</sizeVertCX><sizeVertCY>378631</sizeVertCY></Rect></Wnd4></Sizes></Row0></Right><Bottom><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>198</Bottom><Right>1282</Right><x>-2</x><y>-2</y><xscreen>1284</xscreen><yscreen>200</yscreen><sizeHorzCX>1003125</sizeHorzCX><sizeHorzCY>207469</sizeHorzCY><sizeVertCX>156250</sizeVertCX><sizeVertCY>207469</sizeVertCY></Rect></Wnd1></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Project>
+
+
