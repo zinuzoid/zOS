@@ -11,7 +11,7 @@
 #include "header.h"
 
 #include "stack.h"
-//#include "stm32f10x_it.h"
+#include "stm32f10x_it.h"//debug
 
 //------------------------------------------------------------------------------------------------
 //U8 Stack
@@ -49,12 +49,13 @@ uint8 StackU8Pop(TSTACKU8 *s,uint8 *value)
 		s->top--;
 		return 1;
 	}
-  //UsageFault_Handler();
+  UsageFault_Handler();//debug
   return 0;
 }
 //End U8 Stack
 //------------------------------------------------------------------------------------------------
 
+#ifdef _STACKFLOAT
 //------------------------------------------------------------------------------------------------
 //Float Stack
 void StackFloatInit(TSTACKFLOAT *s)
@@ -83,7 +84,6 @@ uint8 StackFloatPush(TSTACKFLOAT *s,float value)
   return 0;
 }
 
-/*
 uint8 StackFloatPop(TSTACKFLOAT *s,float *value)
 {
 	if(!StackFloatIsEmpty(s))
@@ -92,11 +92,11 @@ uint8 StackFloatPop(TSTACKFLOAT *s,float *value)
 		s->top--;
 		return 1;
 	}
-  //UsageFault_Handler();
+  UsageFault_Handler();//debug
   return 0;
 }
-*/
 //End Float Stack
 //------------------------------------------------------------------------------------------------
+#endif
 
 

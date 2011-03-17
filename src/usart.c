@@ -13,7 +13,8 @@
 #include "queue.h"
 #include "usart.h"
 
-static void USARTPHY_Init(void);
+static void USARTPHY1_Init(void);
+static void USARTPHY2_Init(void);
 static uint8 USARTPHY1_IsTxReady(void);
 static uint8 USARTPHY2_IsTxReady(void);
 static void USARTPHY1_SendData(uint8 data);
@@ -30,7 +31,8 @@ void USARTAPI_Init(void)
   QueueU8Init(&qSerialTx[0]);
   QueueU8Init(&qSerialRx[1]);
   QueueU8Init(&qSerialTx[1]);
-  USARTPHY_Init();
+  USARTPHY1_Init();
+  USARTPHY2_Init();
 }
 
 void zprint(char *str)
@@ -106,7 +108,7 @@ void USART2_SendStr(char *data)
 //end Middle Layer
 //------------------------------------------------------------------------------------------------
 //Physical Driver
-static void USARTPHY_Init(void)
+static void USARTPHY1_Init(void)
 {
   GPIO_InitTypeDef GPIOInit;
 	USART_InitTypeDef USARTInit;
@@ -117,9 +119,6 @@ static void USARTPHY_Init(void)
                          RCC_APB2Periph_USART1|
                          RCC_APB2Periph_AFIO|
                          RCC_APB2Periph_GPIOA
-                         ,ENABLE);
-  RCC_APB1PeriphClockCmd(
-                         RCC_APB1Periph_USART2
                          ,ENABLE);
 
   //GPIO
@@ -133,6 +132,43 @@ static void USARTPHY_Init(void)
 	GPIOInit.GPIO_Speed=GPIO_Speed_10MHz;
 	GPIO_Init(GPIOA,&GPIOInit);
 
+  //USART
+	USARTInit.USART_BaudRate=115200;
+	USARTInit.USART_WordLength=USART_WordLength_8b;
+	USARTInit.USART_StopBits=USART_StopBits_1;
+	USARTInit.USART_Parity=USART_Parity_No;
+	USARTInit.USART_HardwareFlowControl=USART_HardwareFlowControl_None;
+	USARTInit.USART_Mode=USART_Mode_Tx|USART_Mode_Rx;
+
+	USART_Init(USART1,&USARTInit);
+	USART_Cmd(USART1,ENABLE);
+  USART_ITConfig(USART1,USART_IT_RXNE,ENABLE);
+  USART_ITConfig(USART1,USART_IT_TC,ENABLE);
+
+  //IRQ
+	NVICInit.NVIC_IRQChannel=USART1_IRQn;
+	NVICInit.NVIC_IRQChannelPreemptionPriority=0;
+	NVICInit.NVIC_IRQChannelSubPriority=5;
+	NVICInit.NVIC_IRQChannelCmd=ENABLE;
+	NVIC_Init(&NVICInit);
+}
+
+static void USARTPHY2_Init(void)
+{
+  GPIO_InitTypeDef GPIOInit;
+	USART_InitTypeDef USARTInit;
+	NVIC_InitTypeDef NVICInit;	
+
+  //RCC
+  RCC_APB2PeriphClockCmd(
+                         RCC_APB2Periph_AFIO|
+                         RCC_APB2Periph_GPIOA
+                         ,ENABLE);
+  RCC_APB1PeriphClockCmd(
+                         RCC_APB1Periph_USART2
+                         ,ENABLE);
+
+  //GPIO
 	GPIOInit.GPIO_Mode=GPIO_Mode_AF_PP;
 	GPIOInit.GPIO_Pin=GPIO_Pin_2;
 	GPIOInit.GPIO_Speed=GPIO_Speed_10MHz;
@@ -151,23 +187,12 @@ static void USARTPHY_Init(void)
 	USARTInit.USART_HardwareFlowControl=USART_HardwareFlowControl_None;
 	USARTInit.USART_Mode=USART_Mode_Tx|USART_Mode_Rx;
 
-	USART_Init(USART1,&USARTInit);
-	USART_Cmd(USART1,ENABLE);
-  USART_ITConfig(USART1,USART_IT_RXNE,ENABLE);
-  USART_ITConfig(USART1,USART_IT_TC,ENABLE);
-
 	USART_Init(USART2,&USARTInit);
 	USART_Cmd(USART2,ENABLE);
   USART_ITConfig(USART2,USART_IT_RXNE,ENABLE);
   USART_ITConfig(USART2,USART_IT_TC,ENABLE);
 
   //IRQ
-	NVICInit.NVIC_IRQChannel=USART1_IRQn;
-	NVICInit.NVIC_IRQChannelPreemptionPriority=0;
-	NVICInit.NVIC_IRQChannelSubPriority=5;
-	NVICInit.NVIC_IRQChannelCmd=ENABLE;
-	NVIC_Init(&NVICInit);
-
   NVICInit.NVIC_IRQChannel=USART2_IRQn;
 	NVICInit.NVIC_IRQChannelPreemptionPriority=0;
 	NVICInit.NVIC_IRQChannelSubPriority=5;

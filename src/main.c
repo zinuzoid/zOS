@@ -25,14 +25,6 @@ NVIC
 5-USART
 */
 
-float a=1.1;
-
-TSTACKFLOAT sf;
-uint8 kk;
-
-StackFloatPush(&sf,a);
-
-
 int main()
 {
   USARTAPI_Init();
