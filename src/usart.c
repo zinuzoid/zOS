@@ -111,8 +111,8 @@ void USART2_SendStr(char *data)
 static void USARTPHY1_Init(void)
 {
   GPIO_InitTypeDef GPIOInit;
-	USART_InitTypeDef USARTInit;
-	NVIC_InitTypeDef NVICInit;	
+  USART_InitTypeDef USARTInit;
+  NVIC_InitTypeDef NVICInit;	
 
   //RCC
   RCC_APB2PeriphClockCmd(
@@ -123,34 +123,34 @@ static void USARTPHY1_Init(void)
 
   //GPIO
   GPIOInit.GPIO_Mode=GPIO_Mode_AF_PP;
-	GPIOInit.GPIO_Pin=GPIO_Pin_9;
-	GPIOInit.GPIO_Speed=GPIO_Speed_10MHz;
-	GPIO_Init(GPIOA,&GPIOInit);
-	
-	GPIOInit.GPIO_Mode=GPIO_Mode_IN_FLOATING;
-	GPIOInit.GPIO_Pin=GPIO_Pin_10;
-	GPIOInit.GPIO_Speed=GPIO_Speed_10MHz;
-	GPIO_Init(GPIOA,&GPIOInit);
+  GPIOInit.GPIO_Pin=GPIO_Pin_9;
+  GPIOInit.GPIO_Speed=GPIO_Speed_10MHz;
+  GPIO_Init(GPIOA,&GPIOInit);
+  
+  GPIOInit.GPIO_Mode=GPIO_Mode_IN_FLOATING;
+  GPIOInit.GPIO_Pin=GPIO_Pin_10;
+  GPIOInit.GPIO_Speed=GPIO_Speed_10MHz;
+  GPIO_Init(GPIOA,&GPIOInit);
 
   //USART
-	USARTInit.USART_BaudRate=115200;
-	USARTInit.USART_WordLength=USART_WordLength_8b;
-	USARTInit.USART_StopBits=USART_StopBits_1;
-	USARTInit.USART_Parity=USART_Parity_No;
-	USARTInit.USART_HardwareFlowControl=USART_HardwareFlowControl_None;
-	USARTInit.USART_Mode=USART_Mode_Tx|USART_Mode_Rx;
+  USARTInit.USART_BaudRate=115200;
+  USARTInit.USART_WordLength=USART_WordLength_8b;
+  USARTInit.USART_StopBits=USART_StopBits_1;
+  USARTInit.USART_Parity=USART_Parity_No;
+  USARTInit.USART_HardwareFlowControl=USART_HardwareFlowControl_None;
+  USARTInit.USART_Mode=USART_Mode_Tx|USART_Mode_Rx;
 
-	USART_Init(USART1,&USARTInit);
-	USART_Cmd(USART1,ENABLE);
+  USART_Init(USART1,&USARTInit);
+  USART_Cmd(USART1,ENABLE);
   USART_ITConfig(USART1,USART_IT_RXNE,ENABLE);
   USART_ITConfig(USART1,USART_IT_TC,ENABLE);
 
   //IRQ
-	NVICInit.NVIC_IRQChannel=USART1_IRQn;
-	NVICInit.NVIC_IRQChannelPreemptionPriority=0;
-	NVICInit.NVIC_IRQChannelSubPriority=5;
-	NVICInit.NVIC_IRQChannelCmd=ENABLE;
-	NVIC_Init(&NVICInit);
+  NVICInit.NVIC_IRQChannel=USART1_IRQn;
+  NVICInit.NVIC_IRQChannelPreemptionPriority=0;
+  NVICInit.NVIC_IRQChannelSubPriority=5;
+  NVICInit.NVIC_IRQChannelCmd=ENABLE;
+  NVIC_Init(&NVICInit);
 }
 
 static void USARTPHY2_Init(void)
@@ -169,35 +169,35 @@ static void USARTPHY2_Init(void)
                          ,ENABLE);
 
   //GPIO
-	GPIOInit.GPIO_Mode=GPIO_Mode_AF_PP;
-	GPIOInit.GPIO_Pin=GPIO_Pin_2;
-	GPIOInit.GPIO_Speed=GPIO_Speed_10MHz;
-	GPIO_Init(GPIOA,&GPIOInit);
-	
-	GPIOInit.GPIO_Mode=GPIO_Mode_IN_FLOATING;
-	GPIOInit.GPIO_Pin=GPIO_Pin_3;
-	GPIOInit.GPIO_Speed=GPIO_Speed_10MHz;
-	GPIO_Init(GPIOA,&GPIOInit);
+  GPIOInit.GPIO_Mode=GPIO_Mode_AF_PP;
+  GPIOInit.GPIO_Pin=GPIO_Pin_2;
+  GPIOInit.GPIO_Speed=GPIO_Speed_10MHz;
+  GPIO_Init(GPIOA,&GPIOInit);
+  
+  GPIOInit.GPIO_Mode=GPIO_Mode_IN_FLOATING;
+  GPIOInit.GPIO_Pin=GPIO_Pin_3;
+  GPIOInit.GPIO_Speed=GPIO_Speed_10MHz;
+  GPIO_Init(GPIOA,&GPIOInit);
 
   //USART
-	USARTInit.USART_BaudRate=115200;
-	USARTInit.USART_WordLength=USART_WordLength_8b;
-	USARTInit.USART_StopBits=USART_StopBits_1;
-	USARTInit.USART_Parity=USART_Parity_No;
-	USARTInit.USART_HardwareFlowControl=USART_HardwareFlowControl_None;
-	USARTInit.USART_Mode=USART_Mode_Tx|USART_Mode_Rx;
+  USARTInit.USART_BaudRate=115200;
+  USARTInit.USART_WordLength=USART_WordLength_8b;
+  USARTInit.USART_StopBits=USART_StopBits_1;
+  USARTInit.USART_Parity=USART_Parity_No;
+  USARTInit.USART_HardwareFlowControl=USART_HardwareFlowControl_None;
+  USARTInit.USART_Mode=USART_Mode_Tx|USART_Mode_Rx;
 
-	USART_Init(USART2,&USARTInit);
-	USART_Cmd(USART2,ENABLE);
+  USART_Init(USART2,&USARTInit);
+  USART_Cmd(USART2,ENABLE);
   USART_ITConfig(USART2,USART_IT_RXNE,ENABLE);
   USART_ITConfig(USART2,USART_IT_TC,ENABLE);
 
   //IRQ
   NVICInit.NVIC_IRQChannel=USART2_IRQn;
-	NVICInit.NVIC_IRQChannelPreemptionPriority=0;
-	NVICInit.NVIC_IRQChannelSubPriority=5;
-	NVICInit.NVIC_IRQChannelCmd=ENABLE;
-	NVIC_Init(&NVICInit);
+  NVICInit.NVIC_IRQChannelPreemptionPriority=0;
+  NVICInit.NVIC_IRQChannelSubPriority=5;
+  NVICInit.NVIC_IRQChannelCmd=ENABLE;
+  NVIC_Init(&NVICInit);
 }
 
 static uint8 USARTPHY1_IsTxReady(void)
@@ -222,11 +222,11 @@ static void USARTPHY2_SendData(uint8 data)
 
 void USART1_IRQHandler(void)
 {
-	if(USART_GetITStatus(USART1,USART_IT_RXNE)==SET)
-	{
-		USART_ClearITPendingBit(USART1,USART_IT_RXNE);
-  	QueueU8Insert(&qSerialRx[0],USART_ReceiveData(USART1));
-	}
+  if(USART_GetITStatus(USART1,USART_IT_RXNE)==SET)
+  {
+    USART_ClearITPendingBit(USART1,USART_IT_RXNE);
+    QueueU8Insert(&qSerialRx[0],USART_ReceiveData(USART1));
+  }
   if(USART_GetITStatus(USART1,USART_IT_TC)==SET)
   {
     uint8 tmp;
@@ -238,11 +238,11 @@ void USART1_IRQHandler(void)
 
 void USART2_IRQHandler(void)
 {
-	if(USART_GetITStatus(USART2,USART_IT_RXNE)==SET)
-	{
-		USART_ClearITPendingBit(USART2,USART_IT_RXNE);
-  	QueueU8Insert(&qSerialRx[1],USART_ReceiveData(USART2));
-	}
+  if(USART_GetITStatus(USART2,USART_IT_RXNE)==SET)
+  {
+    USART_ClearITPendingBit(USART2,USART_IT_RXNE);
+    QueueU8Insert(&qSerialRx[1],USART_ReceiveData(USART2));
+  }
   if(USART_GetITStatus(USART2,USART_IT_TC)==SET)
   {
     uint8 tmp;

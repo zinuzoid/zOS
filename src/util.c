@@ -65,6 +65,17 @@ void zstrcpy(char *dst,char *src)
     }
 }
 
+uint8 zstrlen(const char *str)
+{
+  uint8 len=0;
+  while(*str)
+  {
+    len++;
+    str++;
+  }
+  return len;
+}
+
 
 
 

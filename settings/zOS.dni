@@ -18,7 +18,7 @@ ActionState=1
 Enabled=0
 ShowSource=1
 [DebugChecksum]
-Checksum=1996617446
+Checksum=-1218934572
 [DisAssemblyWindow]
 NumStates=_ 1
 State 1=_ 1
@@ -41,10 +41,6 @@ LimitSize=0
 ByteLimit=50
 [BreakpointUsageDialog]
 Placement=_ 455 392 892 663
-[Disassemble mode]
-mode=0
-[Breakpoints]
-Count=0
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -52,6 +48,10 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
+[Disassemble mode]
+mode=0
+[Breakpoints]
+Count=0
 [Aliases]
 Count=0
 SuppressDialog=0

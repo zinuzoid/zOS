@@ -11,5 +11,6 @@
 uint8 zstrcmp(const uint8 *s1, const uint8 *s2,uint8 len);
 uint8 zstrcmpnc(const uint8 *s1, const uint8 *s2,uint8 len);
 void zstrcpy(char *dst,char *src);
+uint8 zstrlen(const char *str);
 
 

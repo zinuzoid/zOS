@@ -17,7 +17,8 @@
 
 #define ASCII_ESC       	27
 #define ASCII_ENTER 			13
-#define ASCII_BS          8
+//#define ASCII_BS          8
+#define ASCII_BS          0x7f
 #define ASCII_CTRL_Z			26
 #define ASCII_CLR_SCREEN	12
 
@@ -46,9 +47,15 @@ TCMD_TABLE cmdtable[]={
 //Application Layer
 void CmdTask_10ms(void *param)
 {
+  if(!param)
+    return;
+  
+  uint8 (*RecvCharFn)(uint8*);
+  RecvCharFn=(uint8(*)(uint8*))param;
+  
   uint8 ch;
   uint8 i=0;
-  while(USART1_RecvChar(&ch))
+  while(RecvCharFn(&ch))
   {
     KickDog();
     CmdManage_Recv(&cmd,ch);
@@ -61,7 +68,7 @@ void CmdTask_10ms(void *param)
 void Cmd_Init(void)
 {
   CmdManage_Init(&cmd,zprint,cmdtable,"z> ");
-  TaskAdd(&cmdtask,"CMD",10,CmdTask_10ms,0);
+  TaskAdd(&cmdtask,"CMD",10,CmdTask_10ms,(void*)USART1_RecvChar);
   zprint("\r\nCMD Task Initial...");
 }
 
@@ -128,7 +135,7 @@ static uint8 CmdManage_Check(TCMD *cmd)
 
   for(idx=1;cmd->table[idx].cmd[0];idx++)
   {
-    if(zstrcmpnc(cmd->buf.cmd,(uint8*)cmd->table[idx].cmd,cmd->buf.index))
+    if(zstrcmpnc(cmd->buf.cmd,(uint8*)cmd->table[idx].cmd,zstrlen(cmd->table[idx].cmd)))
       return idx;
   }
 
