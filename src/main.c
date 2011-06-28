@@ -37,14 +37,22 @@ int main()
   Button_Init();
   Cmd_Init();
 
-	while(1)
-	{
-		//fast call
-		
-		//end fast call
-		if(SysTick_1ms())
-		{
-                  TaskRun();
-		}
+  while(1)
+  {
+  //fast call
+  
+  //end fast call
+    if(SysTick_1ms())
+    {
+      TaskRun();
+    }
+  }
+}
+
+void assert_failed(uint8_t* file, uint32_t line)
+{
+  while(1)
+  {
+    USART1_SendStr("assert_failed");
   }
 }

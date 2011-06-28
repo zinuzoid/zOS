@@ -80,7 +80,7 @@ void TaskMonitor(TPRINT print)
   taskrun=taskheader;
 
   print("\r\n+-------------------------------------------------------------------+");
-  print("\r\n- Task Monitoring - RoundRobin Based                               -+");
+  print("\r\n+ Task Monitoring - RoundRobin Based                                +");
   print("\r\n+-------------------------------------------------------------------+");
 
   while(taskrun)

@@ -18,7 +18,7 @@ ActionState=1
 Enabled=0
 ShowSource=1
 [DebugChecksum]
-Checksum=-1218934572
+Checksum=493456017
 [DisAssemblyWindow]
 NumStates=_ 1
 State 1=_ 1
@@ -41,6 +41,18 @@ LimitSize=0
 ByteLimit=50
 [BreakpointUsageDialog]
 Placement=_ 455 392 892 663
+[Stack]
+FillEnabled=0
+OverflowWarningsEnabled=1
+WarningThreshold=90
+SpWarningsEnabled=1
+WarnLogOnly=1
+UseTrigger=1
+TriggerName=main
+LimitSize=0
+ByteLimit=50
+[CallStack]
+ShowArgs=0
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""

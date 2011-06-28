@@ -15,6 +15,8 @@
 #include "roundrobintask.h"
 #include "util.h"
 
+#include <stdlib.h>
+
 #define ASCII_ESC       	27
 #define ASCII_ENTER 			13
 //#define ASCII_BS          8
@@ -182,12 +184,47 @@ static void CmdManage_Init(TCMD *cmd,TPRINT print,const TCMD_TABLE *table,const 
 //Command Function
 static uint8 Cmd_Help(uint8 *cmd,uint8 len,TPRINT print)
 {
-  print("\r\nHelp Test.");
+  print("\r\n+-------------------------------------------------------------------+");
+  print("\r\n+ Command List                                                      +");
+  print("\r\n+-------------------------------------------------------------------+");
+  
+  uint8 i;
+  for(i=1;cmdtable[i].cmd[0];i++)
+  {
+    print("\r\n ");
+    print((char*)cmdtable[i].cmd);
+  }
+  
+  print("\r\n+-------------------------------------------------------------------+");
   return 1;
 }
 static uint8 Cmd_TaskMonitor(uint8 *cmd,uint8 len,TPRINT print)
 {
   TaskMonitor(print);
+  return 1;
+}
+
+static uint8 Cmd_PWMDuty(uint8 *cmd,uint8 len,TPRINT print)
+{
+  //duty 45
+  //012345
+  #define CMDLEN 5
+  int32 duty;
+  if(len>(CMDLEN+1))
+  {
+    cmd+=CMDLEN;
+    duty=atoi((char*)cmd);
+    //PWM_setDuty(duty);
+  }
+  else
+  {
+    //duty=PWM_getDuty();
+  }
+  
+  char bf[8];
+  //sprintf(bf,"\r\nPWMDuty=%d",duty);
+  print(bf);
+  
   return 1;
 }
 //end Command Function
