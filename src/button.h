@@ -2,23 +2,21 @@
 ** Program 	:	button.h
 ** Project	:	zOS
 ** CPU		:	STM32F100
-** Date		:	11/2/2011
+** Date		:	16/7/2011
 ** Modify	:	Jetsada Machom <Zinuzoid Corporation Co.,Ltd.> zinuzoid@gmail.com
 ** Copyright:	
 ** Note 	:	
 ------------------------------------------------------------------------------------------------*/
 
-typedef struct _TBUTTON
-{
-  uint8 channel;
-  const char *channelname;
-  uint8 count;
-  uint8 logicout;
-  uint8 state;
-  uint8 toggle;
-  uint8 (*fnPhy)(uint16);
-}TBUTTON;
+#ifndef _BUTTON_H
+#define _BUTTON_H
 
 void Button_Init(void);
-uint8 Button_Get(TBUTTON *btn);
+uint8 ButtonAPI_Logic(uint8 channel);
+uint8 ButtonAPI_Toggle(uint8 channel,uint8 *logic);
+
+#endif
+
+
+
 

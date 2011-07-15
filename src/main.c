@@ -54,5 +54,6 @@ void assert_failed(uint8_t* file, uint32_t line)
   while(1)
   {
     USART1_SendStr("assert_failed");
+    USART1_SendStr((char*)file);
   }
 }

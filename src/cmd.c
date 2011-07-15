@@ -71,7 +71,6 @@ void Cmd_Init(void)
 {
   CmdManage_Init(&cmd,zprint,cmdtable,"z> ");
   TaskAdd(&cmdtask,"CMD",10,CmdTask_10ms,(void*)USART1_RecvChar);
-  zprint("\r\nCMD Task Initial...");
 }
 
 void CmdManage_Recv(TCMD *cmd,uint8 ch)
@@ -208,11 +207,10 @@ static uint8 Cmd_PWMDuty(uint8 *cmd,uint8 len,TPRINT print)
 {
   //duty 45
   //012345
-  #define CMDLEN 5
   int32 duty;
-  if(len>(CMDLEN+1))
+  if(len>(4+2))
   {
-    cmd+=CMDLEN;
+    cmd+=4+1;
     duty=atoi((char*)cmd);
     //PWM_setDuty(duty);
   }
