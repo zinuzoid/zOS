@@ -35,15 +35,15 @@ static void ButtonPHY_Init(void);
 static uint8 ButtonPHY_getPORTA(uint16 channel);
 static void ButtonTask_1ms(void *btn);
 static void ButtonTask_Debouce1ms(void *btn);
-static void ButtonTask_Init(TBUTTON *btn,const char *channelname,uint16 channel,uint8 *fn);
+static void ButtonTask_Init(uint8 taskchannel,const char *channelname,uint16 channel,uint8 *fn);
 static void Button_PrintPolling(void* param);
 static uint8 Button_Toggle(TBUTTON *btn,uint8 *btnlogic);
 static uint8 Button_Latch(TBUTTON *btn);
 
-TBUTTON btn[CHANNEL];
+TBUTTON tbtn[CHANNEL];
 
-TTASK btntask;
-TTASK printtask;
+TTASK btntask[CHANNEL];
+TTASK printtask[CHANNEL];
 
 
 //------------------------------------------------------------------------------------------------
@@ -51,20 +51,20 @@ TTASK printtask;
 void Button_Init(void)
 {
   ButtonPHY_Init();
-  ButtonTask_Init(&btn[0],"PA0",GPIO_Pin_0,(uint8*)ButtonPHY_getPORTA);
+  ButtonTask_Init(0,"PA0",GPIO_Pin_0,(uint8*)ButtonPHY_getPORTA);
 }
 
 uint8 ButtonAPI_Logic(uint8 channel)
 {
   if(channel<CHANNEL)
-    return btn[channel].logicout;
+    return tbtn[channel].logicout;
   return 0;
 }
 
 uint8 ButtonAPI_Toggle(uint8 channel,uint8 *logic)
 {
   if(channel<CHANNEL)
-    return Button_Toggle(&btn[channel],logic);
+    return Button_Toggle(&tbtn[channel],logic);
   return 0;
 }
 //end Application Layer
@@ -118,15 +118,18 @@ static uint8 Button_Toggle(TBUTTON *btn,uint8 *btnlogic)
   return 0;
 }
 
-static void ButtonTask_Init(TBUTTON *btn,const char *channelname,uint16 channel,uint8 *fn)
+static void ButtonTask_Init(uint8 taskchannel,const char *channelname,uint16 channel,uint8 *fn)
 {
   static char buf1[20];
   static char buf2[20];
-
-  if(!btn)
+  
+  if(taskchannel>=CHANNEL)
     return;
   if(!fn)
     return;
+  
+  TBUTTON *btn;
+  btn=&tbtn[taskchannel];
 
   btn->channel=channel;
   btn->channelname=channelname;
@@ -138,9 +141,9 @@ static void ButtonTask_Init(TBUTTON *btn,const char *channelname,uint16 channel,
   btn->fnPhy=(uint8(*)(uint16))fn;
 
   sprintf(buf1,"Button%s",channelname);
-  TaskAdd(&btntask,buf1,1,ButtonTask_1ms,btn);
+  TaskAdd(&btntask[taskchannel],buf1,1,ButtonTask_1ms,btn);
   sprintf(buf2,"%sCheck",buf1);
-  TaskAdd(&printtask,buf2,10,Button_PrintPolling,btn);
+  TaskAdd(&printtask[taskchannel],buf2,10,Button_PrintPolling,btn);
 }
 
 static void ButtonTask_1ms(void *btn)
