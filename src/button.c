@@ -19,15 +19,20 @@
 #define BOUNCE_TIME 40
 #define CHANNEL     1
 
+#define BOUNCE_TIME 40
+#define LATCH_DIV   100
+#define CHANNEL     1
+
 typedef struct _TBUTTON
 {
-  uint8 channel;
   const char *channelname;
+  uint16 channel;
   uint8 count;
+  uint16 latchcount;
+  uint8 toggle;
+  uint8 latchtoggle;
   uint8 logicout;
   uint8 state;
-  uint8 toggle;
-  uint16 presscount;
   uint8 (*fnPhy)(uint16);
 }TBUTTON;
 
@@ -35,10 +40,11 @@ static void ButtonPHY_Init(void);
 static uint8 ButtonPHY_getPORTA(uint16 channel);
 static void ButtonTask_1ms(void *btn);
 static void ButtonTask_Debouce1ms(void *btn);
-static void ButtonTask_Init(uint8 taskchannel,const char *channelname,uint16 channel,uint8 *fn);
+static void ButtonTask_Init(uint8 btnindex,const char *channelname,uint16 channel,uint8 *fn);
 static void Button_PrintPolling(void* param);
+static uint16 Button_Latch(TBUTTON *btn);
 static uint8 Button_Toggle(TBUTTON *btn,uint8 *btnlogic);
-static uint8 Button_Latch(TBUTTON *btn);
+static uint8 Button_LatchToggle(TBUTTON *btn,uint8 *btnlatch);
 
 TBUTTON tbtn[CHANNEL];
 
@@ -67,41 +73,26 @@ uint8 ButtonAPI_Toggle(uint8 channel,uint8 *logic)
     return Button_Toggle(&tbtn[channel],logic);
   return 0;
 }
+
+uint8 ButtonAPI_Latch(uint8 channel)
+{
+  if(channel<CHANNEL)
+    return Button_Latch(&tbtn[channel])/LATCH_DIV;
+  return 0;
+}
+
+uint8 ButtonAPI_LatchToggle(uint8 channel,uint8 *latch)
+{
+  if(channel<CHANNEL)
+    return Button_LatchToggle(&tbtn[channel],latch);
+  return 0;
+}
 //end Application Layer
 //------------------------------------------------------------------------------------------------
 //Middle Layer
-static void Button_PrintPolling(void* param)
+static uint16 Button_Latch(TBUTTON *btn)
 {
-  TBUTTON *btn;
-  uint8 logic,latch;
-
-  if(!param)
-    return;
-
-  btn=param;
-
-  if(Button_Toggle(&btn[0],&logic))
-  {
-    zprint("\r\nButton ");
-    zprint((char*)btn->channelname);
-    zprint(" Logic : ");
-    logic+='0';
-    zprint((char*)&logic);
-  }
-  
-  latch=Button_Latch(btn);
-  if(latch)
-  {
-    char tmp[2];
-    tmp[0]=(char)(latch+'0');
-    tmp[1]=0;
-    zprint(tmp);
-  }
-}
-
-static uint8 Button_Latch(TBUTTON *btn)
-{
-  return btn->presscount/1000;
+  return btn->latchcount;
 }
 
 static uint8 Button_Toggle(TBUTTON *btn,uint8 *btnlogic)
@@ -118,32 +109,79 @@ static uint8 Button_Toggle(TBUTTON *btn,uint8 *btnlogic)
   return 0;
 }
 
-static void ButtonTask_Init(uint8 taskchannel,const char *channelname,uint16 channel,uint8 *fn)
+static uint8 Button_LatchToggle(TBUTTON *btn,uint8 *btnlatch)
+{
+  if(!btn)
+    return 0;
+  
+  if(btn->latchtoggle!=(btn->latchcount)/LATCH_DIV)
+  {
+    btn->latchtoggle=btn->latchcount/LATCH_DIV;
+    *btnlatch=btn->latchtoggle;
+    return 1;
+  }
+  return 0;
+  
+}
+
+static void Button_PrintPolling(void* param)
+{
+  TBUTTON *btn;
+  uint8 logic;
+
+  if(!param)
+    return;
+
+  btn=param;
+
+  if(Button_Toggle(&btn[0],&logic))
+  {
+    zprint("\r\nButton ");
+    zprint((char*)btn->channelname);
+    zprint(" Logic : ");
+    
+    char tmp[2];
+    tmp[0]=(char)(logic+'0');
+    tmp[1]=0;
+    zprint(tmp);
+  }
+
+  uint16 latch=Button_Latch(btn);
+  if(latch)
+  {
+    char tmp[6];
+    sprintf(tmp,",%d",latch);
+    zprint(tmp);
+  }
+}
+
+static void ButtonTask_Init(uint8 btnindex,const char *channelname,uint16 channel,uint8 *fn)
 {
   static char buf1[20];
   static char buf2[20];
   
-  if(taskchannel>=CHANNEL)
+  if(btnindex>=CHANNEL)
     return;
   if(!fn)
     return;
   
   TBUTTON *btn;
-  btn=&tbtn[taskchannel];
+  btn=&tbtn[btnindex];
 
-  btn->channel=channel;
   btn->channelname=channelname;
+  btn->channel=channel;
   btn->count=0;
+  btn->latchcount=0;
   btn->logicout=0;
   btn->state=0;
   btn->toggle=0;
-  btn->presscount=0;
+  btn->latchtoggle=0;
   btn->fnPhy=(uint8(*)(uint16))fn;
 
   sprintf(buf1,"Button%s",channelname);
-  TaskAdd(&btntask[taskchannel],buf1,1,ButtonTask_1ms,btn);
+  TaskAdd(&btntask[btnindex],buf1,1,ButtonTask_1ms,btn);
   sprintf(buf2,"%sCheck",buf1);
-  TaskAdd(&printtask[taskchannel],buf2,10,Button_PrintPolling,btn);
+  TaskAdd(&printtask[btnindex],buf2,10,Button_PrintPolling,btn);
 }
 
 static void ButtonTask_1ms(void *btn)
@@ -198,7 +236,7 @@ static void ButtonTask_Debouce1ms(void *btn)
     }
     else
     {
-      btnptr->presscount=0;
+      btnptr->latchcount=0;
       btnptr->state=10;
     }
     btnptr->logicout=1;
@@ -206,11 +244,11 @@ static void ButtonTask_Debouce1ms(void *btn)
   case 10:
     if(btnptr->fnPhy(btnptr->channel))
     {
-      btnptr->presscount++;
+      btnptr->latchcount++;
     }
     else
     {
-      btnptr->presscount=0;
+      btnptr->latchcount=0;
       btnptr->state=2;
     }
     break;

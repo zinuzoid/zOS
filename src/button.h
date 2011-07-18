@@ -14,6 +14,7 @@
 void Button_Init(void);
 uint8 ButtonAPI_Logic(uint8 channel);
 uint8 ButtonAPI_Toggle(uint8 channel,uint8 *logic);
+uint8 ButtonAPI_Latch(uint8 channel);
 
 #endif
 

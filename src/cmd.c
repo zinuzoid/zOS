@@ -17,12 +17,11 @@
 
 #include <stdlib.h>
 
-#define ASCII_ESC       	27
-#define ASCII_ENTER 			13
-//#define ASCII_BS          8
+#define ASCII_ESC         27
+#define ASCII_ENTER       13
 #define ASCII_BS          0x7f
-#define ASCII_CTRL_Z			26
-#define ASCII_CLR_SCREEN	12
+#define ASCII_CTRL_Z      26
+#define ASCII_CLR_SCREEN  12
 
 static void CmdManage_Init(TCMD *cmd,TPRINT print,const TCMD_TABLE *table,const char *prompt);
 static uint8 Cmd_Help(uint8 *cmd,uint8 len,TPRINT print);
